@@ -36,8 +36,12 @@ class TestFeatureBuilder(unittest.TestCase):
     def test_currency_cleaning(self):
         """測試金額欄位是否成功轉為數字"""
         input_df = pd.DataFrame({'SBA_Appv': ['$1,234.56']})
+        
+        # 這裡會跑你 Notebook 裡面的那個 for c in cn 迴圈邏輯
         output_df = self.builder.transform(input_df)
-        self.assertEqual(output_df['SBA_Appv'].iloc, 1234.56)
+        
+        # 必須加上 才能抓到第一 row 的 1234.56
+        self.assertEqual(output_df['SBA_Appv'].iloc[0], 1234.56)
 
 if __name__ == '__main__':
     unittest.main()
