@@ -1,0 +1,15 @@
+name: Python Basic Check
+on: [push] # 每次你推送到 GitHub 都會觸發
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Syntax Check
+        run: python -m py_compile app.py feature_builder.py

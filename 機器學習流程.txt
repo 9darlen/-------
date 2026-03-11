@@ -1,0 +1,27 @@
+資料清洗與探索 (EDA)：處理缺失值、異常值。
+
+特徵工程 (Feature Engineering)：
+
+數值型：取對數 (Log Transformation)。
+
+類別型：One-Hot Encoding。
+
+切分資料 (Data Splitting)：
+
+先分出 測試集 (Test Set)（這份資料要鎖進保險箱，最後才能拿出來）。
+
+剩下的部分作為 訓練集 (Train Set)。
+
+特徵篩選與降維 (Feature Selection/Reduction)：只在訓練集上執行。
+
+方法選擇：Stepwise、Elastic Net (選其一即可) 或 PCA。
+
+模型訓練與超參數調優 (Hyperparameter Tuning)：
+
+這時候使用 交叉驗證 (Cross Validation)。它取代了靜態的「驗證集」，讓模型在訓練集中輪流當訓練和驗證，評估更精準。
+
+最終評估 (Final Evaluation)：
+
+使用從未看過的 測試集。
+
+製作 混淆矩陣 (Confusion Matrix)、ROC 曲線等。
