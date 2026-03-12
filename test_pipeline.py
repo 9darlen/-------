@@ -39,12 +39,12 @@ class TestFeatureBuilder(unittest.TestCase):
         output_df = self.builder.transform(input_df)
         
         # 加入這行，這樣在 GitHub Actions 的 Log 裡就能看到結果
-        print(f"\n轉換後的數值為: {output_df['SBA_Appv'].iloc}")
+        print(f"\n轉換後的數值為: {output_df['SBA_Appv'].iloc[0]}")
         
         # 修正測試預期值：考慮到 Log 轉換
         import numpy as np
         expected_val = np.log1p(1234.56)
-        self.assertAlmostEqual(output_df['SBA_Appv'].iloc, expected_val, places=5)
+        self.assertAlmostEqual(output_df['SBA_Appv'].iloc[0], expected_val, places=5)
 
 if __name__ == '__main__':
     unittest.main()
