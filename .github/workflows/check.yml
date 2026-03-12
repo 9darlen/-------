@@ -3,6 +3,9 @@ on: [push] # 每次你推送到 GitHub 都會觸發
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
