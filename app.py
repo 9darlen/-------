@@ -1,13 +1,17 @@
+import pandas as pd
+# 告訴 Pandas 不要用新的處理引擎，這通常能避開 StringDtype 的初始化錯誤
+pd.set_option("mode.string_storage", "python") 
+
 import streamlit as st
 import joblib
-import pandas as pd
+# ... 後續保持不變
 import numpy as np
 
 # 設定頁面標題
 st.set_page_config(page_title="SBA 貸款違約預測系統", layout="centered")
 
 # 1. 載入模型 (快取處理，避免重複載入)
-@st.cache_resource
+#@st.cache_resource
 def load_model():
     return joblib.load("best_pipeline.joblib")
 
@@ -30,7 +34,8 @@ with st.form("loan_form"):
         new_exist = st.selectbox("公司類型", options=[1, 2], format_func=lambda x: "現有公司" if x==1 else "新創公司")
         urban_rural = st.selectbox("地區屬性", options=[0, 1, 2], format_func=lambda x: "未知" if x==0 else ("都市" if x==1 else "鄉村"))
 
-    submitted = st.form_submit_with_button("開始分析風險")
+    # 修正後的寫法
+    submitted = st.form_submit_button("開始分析風險")
 
 # 3. 執行預測
 if submitted:
