@@ -43,11 +43,6 @@ else:
     # 正式訓練時才讀取實際檔案
     df = pd.read_csv("data/SBAnational.csv").dropna(subset=["MIS_Status"])
 
-    
-# 測試模式：只抓 1000 row，避免 Actions 執行過久
-if is_test:
-    print("⚠️ 測試模式啟動：僅取 1000 筆資料列 (row)")
-    df = df.sample(n=1000, random_state=42)
 
 y = (df["MIS_Status"] == "CHGOFF").astype(int)
 X = df.drop(columns=["MIS_Status"])
