@@ -26,7 +26,23 @@ OHE_COLS = ['NewExist','UrbanRural','RevLineCr','FranchiseCode_Binary','LowDoc']
 
 # 2. 讀取資料
 print("正在讀取資料...")
-df = pd.read_csv("data/SBAnational.csv").dropna(subset=["MIS_Status"])
+if is_test:
+    print("⚠️ 測試模式：生成模擬數據以跳過大型 CSV 讀取...")
+    # 建立一個包含所有必要欄位 (column) 的假資料
+    dummy_data = {
+        'State': ['CA']*10, 'BankState': ['CA']*10, 'ApprovalFY': ['2006']*10,
+        'NAICS': ['236115']*10, 'NewExist': [1.0]*10, 'UrbanRural': [1]*10,
+        'RevLineCr': ['N']*10, 'LowDoc': ['N']*10, 'FranchiseCode': ['0']*10,
+        'SBA_Appv': ['$10,000']*10, 'GrAppv': ['$10,000']*10, 
+        'DisbursementGross': ['$10,000']*10, 'BalanceGross': ['$0']*10,
+        'ChgOffPrinGr': ['$0']*10, 'ApprovalDate': ['1-Jan-06']*10,
+        'MIS_Status': ['P I F']*10
+    }
+    df = pd.DataFrame(dummy_data)
+else:
+    # 正式訓練時才讀取實際檔案
+    df = pd.read_csv("data/SBAnational.csv").dropna(subset=["MIS_Status"])
+
     
 # 測試模式：只抓 1000 row，避免 Actions 執行過久
 if is_test:
